@@ -1,0 +1,7 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+stock_one:
+  name: stockOne
+
+stock_two:
+  name: stockTwo
