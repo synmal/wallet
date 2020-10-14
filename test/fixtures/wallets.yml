@@ -7,10 +7,10 @@ user_wallet:
 
 team_wallet:
   balance: 9.99
-  owner: teamOne
+  owner: team_one
   owner_type: Team
 
 stock_wallet:
   balance: 9.99
-  owner: stockOne
+  owner: stock_one
   owner_type: Stock

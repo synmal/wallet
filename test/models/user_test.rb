@@ -21,4 +21,16 @@ class UserTest < ActiveSupport::TestCase
       User.create(username: 'synmal')
     end
   end
+
+  test 'wallet created after user created' do
+    user = User.create!(username: 'Asdf')
+    assert user.wallet
+  end
+
+  test 'can only have one wallet' do
+    @user.save
+    assert_raise(ActiveRecord::RecordNotUnique) do
+      Wallet.create(owner: @user)
+    end
+  end
 end

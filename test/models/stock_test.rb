@@ -21,4 +21,16 @@ class StockTest < ActiveSupport::TestCase
       Stock.create(name: 'stockOne')
     end
   end
+
+  test 'wallet created after stock created' do
+    stock = Stock.create!(name: 'Asdf')
+    assert stock.wallet
+  end
+
+  test 'can only have one wallet' do
+    @stock.save
+    assert_raise(ActiveRecord::RecordNotUnique) do
+      Wallet.create(owner: @stock)
+    end
+  end
 end

@@ -21,4 +21,16 @@ class TeamTest < ActiveSupport::TestCase
       Team.create(name: 'teamOne')
     end
   end
+
+  test 'wallet created after team created' do
+    team = Team.create!(name: 'Asdf')
+    assert team.wallet
+  end
+
+  test 'can only have one wallet' do
+    @team.save
+    assert_raise(ActiveRecord::RecordNotUnique) do
+      Wallet.create(owner: @team)
+    end
+  end
 end
