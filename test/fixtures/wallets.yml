@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+user_wallet:
+  balance: 9.99
+  owner: synmal
+  owner_type: User
+
+team_wallet:
+  balance: 9.99
+  owner: teamOne
+  owner_type: Team
+
+stock_wallet:
+  balance: 9.99
+  owner: stockOne
+  owner_type: Stock

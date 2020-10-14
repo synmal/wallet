@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_14_004545) do
+ActiveRecord::Schema.define(version: 2020_10_14_010041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 2020_10_14_004545) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "wallets", force: :cascade do |t|
+    t.decimal "balance", precision: 12, scale: 2, default: "0.0", null: false
+    t.string "owner_type", null: false
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_id", "owner_type"], name: "index_wallets_on_owner_id_and_owner_type", unique: true
+    t.index ["owner_type", "owner_id"], name: "index_wallets_on_owner_type_and_owner_id"
   end
 
 end
