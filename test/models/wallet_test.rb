@@ -19,16 +19,4 @@ class WalletTest < ActiveSupport::TestCase
       Wallet.create!(balance: 0)
     end
   end
-
-  test 'create wallet after user created' do
-    assert true
-  end
-
-  test 'create wallet after team created' do
-    assert true
-  end
-
-  test 'create wallet after stock created' do
-    assert true
-  end
 end
