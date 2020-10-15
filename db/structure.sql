@@ -106,6 +106,7 @@ CREATE TABLE public.transactions (
     transact_from_id bigint NOT NULL,
     transact_to_type character varying NOT NULL,
     transact_to_id bigint NOT NULL,
+    type character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
