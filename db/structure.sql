@@ -97,6 +97,40 @@ ALTER SEQUENCE public.teams_id_seq OWNED BY public.teams.id;
 
 
 --
+-- Name: transactions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.transactions (
+    id bigint NOT NULL,
+    amount numeric(12,2) DEFAULT 0.0 NOT NULL,
+    transact_from_id bigint NOT NULL,
+    transact_to_type character varying NOT NULL,
+    transact_to_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.transactions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.transactions_id_seq OWNED BY public.transactions.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -175,6 +209,13 @@ ALTER TABLE ONLY public.teams ALTER COLUMN id SET DEFAULT nextval('public.teams_
 
 
 --
+-- Name: transactions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.transactions ALTER COLUMN id SET DEFAULT nextval('public.transactions_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -221,6 +262,14 @@ ALTER TABLE ONLY public.teams
 
 
 --
+-- Name: transactions transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.transactions
+    ADD CONSTRAINT transactions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -248,6 +297,20 @@ CREATE UNIQUE INDEX index_stocks_on_name ON public.stocks USING btree (name);
 --
 
 CREATE UNIQUE INDEX index_teams_on_name ON public.teams USING btree (name);
+
+
+--
+-- Name: index_transactions_on_transact_from_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transactions_on_transact_from_id ON public.transactions USING btree (transact_from_id);
+
+
+--
+-- Name: index_transactions_on_transact_to_type_and_transact_to_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transactions_on_transact_to_type_and_transact_to_id ON public.transactions USING btree (transact_to_type, transact_to_id);
 
 
 --
@@ -282,6 +345,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201014004539'),
 ('20201014004545'),
 ('20201014010041'),
-('20201014014409');
+('20201014014409'),
+('20201015002513');
 
 
