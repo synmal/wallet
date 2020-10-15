@@ -103,6 +103,7 @@ ALTER SEQUENCE public.teams_id_seq OWNED BY public.teams.id;
 CREATE TABLE public.transactions (
     id bigint NOT NULL,
     amount numeric(12,2) DEFAULT 0.0 NOT NULL,
+    transact_from_type character varying NOT NULL,
     transact_from_id bigint NOT NULL,
     transact_to_type character varying NOT NULL,
     transact_to_id bigint NOT NULL,
@@ -301,10 +302,10 @@ CREATE UNIQUE INDEX index_teams_on_name ON public.teams USING btree (name);
 
 
 --
--- Name: index_transactions_on_transact_from_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_transactions_on_transact_from_type_and_transact_from_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_transactions_on_transact_from_id ON public.transactions USING btree (transact_from_id);
+CREATE INDEX index_transactions_on_transact_from_type_and_transact_from_id ON public.transactions USING btree (transact_from_type, transact_from_id);
 
 
 --
