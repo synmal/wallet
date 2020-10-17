@@ -3,7 +3,8 @@
     <h5 class="card-title">Wallet Balance</h5>
     <p class="card-text">MYR <%= number_with_precision(@wallet.balance, precision: 2) %></p>
   </div>
-  <%= button_tag 'Top Up', class: 'btn btn-primary align-self-center mr-4', data: {toggle: 'modal', target: '#topupModal'} %>
+  <%= button_tag 'Top Up', class: 'btn btn-sm btn-primary align-self-center mr-4', data: {toggle: 'modal', target: '#topupModal'} %>
+  <%= button_tag 'Withdrawal', class: 'btn btn-sm btn-danger align-self-center mr-4', data: {toggle: 'modal', target: '#withdrawModal'} %>
 </div>
 
 <div class="card flex-row">
@@ -18,3 +19,5 @@
 </div>
 
 <%= render partial: 'topup_modal' %>
+<%= render partial: 'withdrawal_modal' %>
+<%= render partial: 'transfer_modal' %>

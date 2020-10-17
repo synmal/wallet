@@ -1,0 +1,7 @@
+<%= form_with url: debits_path, local: true do |f| %>
+  <div class="form-group mb-4">
+    <%= f.label :amount, 'Amount (MYR)' %>
+    <%= f.number_field :amount, step: 0.01%>
+  </div>
+  <%= f.submit 'Withdraw', class: 'btn btn-primary float-right' %>
+<% end %>

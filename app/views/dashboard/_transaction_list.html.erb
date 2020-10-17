@@ -10,7 +10,7 @@
   </td>
   <td>
     <% if money_out? trans %>
-      <% number_with_precision(trans.amount, precision: 2) %>
+      <%= number_with_precision(trans.amount, precision: 2) %>
     <% else %>
       -
     <% end %>
