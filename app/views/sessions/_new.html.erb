@@ -1,0 +1,11 @@
+<%= form_with url: sessions_path, local: true do |f| %>
+  <div class="form-group mb-2">
+    <%= f.label :username, 'Username', class: 'mb-1' %>
+    <%= f.text_field :username, class: 'form-control' %>
+    <small class="form-text text-muted">This is just for demo purposes.</small><br>
+    <small class="form-text text-muted">For users try: synmal</small><br>
+    <small class="form-text text-muted">For teams try: team_one</small><br>
+    <small class="form-text text-muted">For stocks try: stock_one</small><br>
+  </div>
+  <%= f.submit 'Login', class: 'btn btn-primary' %>
+<% end %>
