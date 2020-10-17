@@ -3,8 +3,7 @@
     <h5 class="card-title">Wallet Balance</h5>
     <p class="card-text">MYR <%= number_with_precision(@wallet.balance, precision: 2) %></p>
   </div>
-  <button class="btn btn-primary align-self-center mr-4">Top Up</button>
-
+  <%= button_tag 'Top Up', class: 'btn btn-primary align-self-center mr-4', data: {toggle: 'modal', target: '#topupModal'} %>
 </div>
 
 <div class="card flex-row">
@@ -17,3 +16,5 @@
     <% end %>
   </div>
 </div>
+
+<%= render partial: 'topup_modal' %>
