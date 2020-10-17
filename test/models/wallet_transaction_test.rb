@@ -1,44 +1,76 @@
 require 'test_helper'
-
+##
+# Test validation on credit and debit and transfer transact_from/transact_to type
 class WalletTransactionTest < ActiveSupport::TestCase
   setup do
     @user = users(:synmal)
     @stock = stocks(:stock_one)
+    @team = teams(:team_one)
   end
 
   test 'should have type transfer' do
-    assert true
+    transfer = Transfer.new(amount: 1, transact_from: @user.wallet, transact_to: @stock.wallet)
+    transfer.save
+    assert transfer.type == 'transfer'
+  end
+
+  test 'should only transfer from wallet to wallet' do
+    [@user, @team, @stock].each do |u|
+      transfer = Transfer.new(amount: 1, transact_from: u, transact_to: u.wallet)
+      assert_not transfer.save
+    end
+
+    [@user, @team, @stock].each do |u|
+      transfer = Transfer.new(amount: 1, transact_from: u.wallet, transact_to: u)
+      assert_not transfer.save
+    end
   end
 
   test 'should have type credit' do
-    assert true
+    credit = Credit.new(amount: 1, transact_from: @user, transact_to: @user.wallet)
+    credit.save
+    assert credit.type == 'credit'
+  end
+
+  test 'should automatically point to owners wallet' do
+    credit = Credit.new(amount: 1, transact_from: @user)
+    assert credit.save
+    assert credit.transact_from == credit.transact_to.owner
   end
 
   test 'should have type debit' do
-    assert true
+    debit = Debit.new(amount: 1, transact_from: @user.wallet, transact_to: @user)
+    debit.save
+    assert debit.type == 'debit'
   end
 
-  test 'should be able to create transaction with sufficient wallet balance' do
-    assert true
+  test 'should automatically point to wallet owner' do
+    debit = Debit.new(amount: 1, transact_to: @user)
+    assert debit.save
+    assert debit.transact_to == debit.transact_from.owner
   end
 
-  test 'should not be able to create transaction with insufficient wallet balance' do
-    assert true
-  end
+  # test 'should be able to create transaction with sufficient wallet balance' do
+  #   assert true
+  # end
 
-  test 'transfer amount will be deducted from transferer wallet' do
-    assert true
-  end
+  # test 'should not be able to create transaction with insufficient wallet balance' do
+  #   assert true
+  # end
 
-  test 'transfer amount will be added to transferee wallet' do
-    assert true
-  end
+  # test 'transfer amount will be deducted from transferer wallet' do
+  #   assert true
+  # end
 
-  test 'credit amount will be added to owner wallet' do
-    assert true
-  end
+  # test 'transfer amount will be added to transferee wallet' do
+  #   assert true
+  # end
 
-  test 'debit amount will be deducted from owner wallet' do
-    assert true
-  end
+  # test 'credit amount will be added to owner wallet' do
+  #   assert true
+  # end
+
+  # test 'debit amount will be deducted from owner wallet' do
+  #   assert true
+  # end
 end
