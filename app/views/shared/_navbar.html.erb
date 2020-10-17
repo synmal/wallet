@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary p-2 rounded mb-3">
+  <%= link_to 'Wallet', root_path, class: 'navbar-brand' %>
+  <%= button_tag type: 'button', class: 'navbar-toggler', data: {toggle: 'collapse', target: '#navbarSupportedContent'}, aria: {controls: 'navbarSupportedContent', expanded: 'false', label: 'Toggle Navigation'} do %>
+    <span class="navbar-toggler-icon"></span>
+  <% end %>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <%  %>
+      <li class="nav-item active">
+        <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
+      </li>
+    </ul>
+    <% if logged_in? %>
+      <%= button_to 'Logout', sessions_path, method: 'delete', class: 'btn btn-danger' %>
+    <% end %>
+  </div>
+</nav>

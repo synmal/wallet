@@ -1,3 +1,10 @@
-<div class="container">
-  <%= render partial: 'sessions/new' %>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title text-center mb-4">Welcome to Wallet</h5>
+    <div class="d-flex justify-content-around">
+      <% ['User', 'Team', 'Stock'].each do |u| %>
+        <%= button_to "Logged In As #{u}", sessions_path, class: 'btn btn-primary', params: {type: u} %>
+      <% end %>
+    </div>
+  </div>
 </div>

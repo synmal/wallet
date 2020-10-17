@@ -1,9 +1,11 @@
 class SessionsController < ApplicationController
+  before_action :logout_existing
+
   def create
-    user = User.find_by(username: params[:username])
+    user = params[:type].constantize.first
 
     if user
-      session[:user_id] = user.id
+      set_session user.id
       flash[:success] = 'Successfully Logged In'
       redirect_to dashboard_path
     else
@@ -13,8 +15,18 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
     flash[:success] = 'Logged Out'
     redirect_to root_path
+  end
+
+  private
+  def set_session(id)
+    session[params[:type].downcase.to_sym] = id
+  end
+
+  def logout_existing
+    ['user', 'team', 'stock'].each do |u|
+      session[u.to_sym] = nil
+    end
   end
 end

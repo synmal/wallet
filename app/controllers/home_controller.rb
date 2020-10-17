@@ -6,6 +6,6 @@ class HomeController < ApplicationController
 
   private
   def redirect_if_logged_in
-    redirect_to dashboard_path if session[:user_id]
+    redirect_to dashboard_path if logged_in?
   end
 end
