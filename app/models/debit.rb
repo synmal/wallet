@@ -2,6 +2,7 @@ class Debit < WalletTransaction
   validate :only_from_debiter_wallet, :sufficient_balance
 
   before_validation :debit_to_owner
+  after_create :deduct_from_wallet
 
   private
   def only_from_debiter_wallet
@@ -13,5 +14,13 @@ class Debit < WalletTransaction
 
   def debit_to_owner
     self.transact_from = transact_to.wallet
+  end
+
+  def deduct_from_wallet
+    Debit.transaction do
+      wallet = transact_from.lock!
+      wallet.balance -= amount
+      wallet.save!
+    end
   end
 end

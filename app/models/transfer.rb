@@ -1,5 +1,6 @@
 class Transfer < WalletTransaction
   validate :only_wallet_to_wallet, :sufficient_balance
+  after_create :deduct_add_balance
 
   private
   def only_wallet_to_wallet
@@ -8,7 +9,15 @@ class Transfer < WalletTransaction
     end
   end
 
-  def add_to_transferee
+  def deduct_add_balance
+    Transfer.transaction do
+      transferer = transact_from.lock!
+      transferee = transact_to.lock!
 
+      transferer.balance -= amount
+      transferer.save!
+      transferee.balance += amount
+      transferee.save!
+    end
   end
 end

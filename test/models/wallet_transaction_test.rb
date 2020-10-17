@@ -61,19 +61,28 @@ class WalletTransactionTest < ActiveSupport::TestCase
     assert_not debit.save
   end
 
-  # test 'transfer amount will be deducted from transferer wallet' do
-  #   assert true
-  # end
+  test 'transfer amount will be added/deducted from transferee/transferer wallet' do
+    @user.wallet.update!(balance: 10)
+    @stock.wallet.update!(balance: 10)
+    amount = (1..10).to_a.sample
+    transfer = Transfer.create(amount: amount, transact_from: @user.wallet, transact_to: @stock.wallet)
+    assert (10 - amount.to_f) == transfer.transact_from.reload.balance
+    assert (10 + amount.to_f) == transfer.transact_to.reload.balance
+  end
 
-  # test 'transfer amount will be added to transferee wallet' do
-  #   assert true
-  # end
+  test 'credit amount will be added to owner wallet' do
+    @user.wallet.update!(balance: 10)
 
-  # test 'credit amount will be added to owner wallet' do
-  #   assert true
-  # end
+    amount = (1..10).to_a.sample
+    credit = Credit.create(amount: amount, transact_from: @user)
+    assert (10 + amount.to_f) == credit.transact_to.reload.balance
+  end
 
-  # test 'debit amount will be deducted from owner wallet' do
-  #   assert true
-  # end
+  test 'debit amount will be deducted from owner wallet' do
+    @user.wallet.update!(balance: 10)
+
+    amount = (1..10).to_a.sample
+    credit = Debit.create(amount: amount, transact_to: @user)
+    assert (10 - amount.to_f) == credit.transact_from.reload.balance
+  end
 end
