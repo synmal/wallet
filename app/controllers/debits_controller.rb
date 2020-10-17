@@ -7,7 +7,7 @@ class DebitsController < ApplicationController
     if debit.save
       flash[:success] = "MYR #{debit_params[:amount]} has been withdrawn!"
     else
-      flash[:fail] = "Something went wrong please try again later"
+      flash[:fail] = debit.errors.full_messages.first
     end
     redirect_to dashboard_path
   end
