@@ -1,4 +1,7 @@
-<div class="p-2">
-  <h1>Dashboard#show</h1>
-  <p>Find me in app/views/dashboard/show.html.erb</p>
+<div class="card flex-row">
+  <div class="card-body">
+    <h5 class="card-title">Wallet Balance</h5>
+    <p class="card-text">MYR <%= number_with_precision(@wallet.balance, precision: 2) %></p>
+  </div>
+  <button class="btn btn-primary align-self-center mr-4">Top Up</button>
 </div>

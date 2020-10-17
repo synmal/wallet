@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
   def logged_in?
     session[:user] || session[:stock] || session[:team]
   end
+
+  def set_person
+    @person = User.find_by(id: session[:user]) || Stock.find_by(id: session[:stock]) || Team.find_by(id: session[:team])
+  end
 end
