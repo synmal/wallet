@@ -1,6 +1,5 @@
 require 'test_helper'
-##
-# Test validation on credit and debit and transfer transact_from/transact_to type
+
 class WalletTransactionTest < ActiveSupport::TestCase
   setup do
     @user = users(:synmal)
