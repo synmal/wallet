@@ -1,7 +1,19 @@
-<div class="card flex-row">
+<div class="card flex-row mb-4">
   <div class="card-body">
     <h5 class="card-title">Wallet Balance</h5>
     <p class="card-text">MYR <%= number_with_precision(@wallet.balance, precision: 2) %></p>
   </div>
   <button class="btn btn-primary align-self-center mr-4">Top Up</button>
+
+</div>
+
+<div class="card flex-row">
+  <div class="card-body">
+    <h5 class="card-title text-center">Transactions</h5>
+    <% if @transactions.empty? %>
+      <p class="text-center">There are no transactions yet</p>
+    <% else %>
+      <%= render partial: 'transaction_table', locals: {transactions: @transactions} %>
+    <% end %>
+  </div>
 </div>
