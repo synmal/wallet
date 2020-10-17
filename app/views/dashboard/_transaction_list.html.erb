@@ -1,19 +1,21 @@
 <tr>
   <th scope="row"><%= trans.created_at.strftime('%d/%m/%Y') %></th>
-  <td><%= trans.type %></td>
-  <td><%= trans.transact_from %></td>
+  <td><%= transaction_detail(trans) %></td>
   <td>
-    <% if trans.type == 'Credit' %>
-      Wallet
-    <% elsif trans.type == 'Debit' %>
-      -
+    <% if money_in? trans %>
+      <%= number_with_precision(trans.amount, precision: 2) %>
     <% else %>
-      <%= trans.transact_to.owner.name %>
+      -
     <% end %>
   </td>
   <td>
-    <strong class="<%= transaction_class(trans.type) %>">
-      <%= transact_amount(trans.amount, trans.type) %>
-    </strong>
+    <% if money_out? trans %>
+      <% number_with_precision(trans.amount, precision: 2) %>
+    <% else %>
+      -
+    <% end %>
+  </td>
+  <td>
+    -
   </td>
 </tr>
