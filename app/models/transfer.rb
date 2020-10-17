@@ -8,12 +8,6 @@ class Transfer < WalletTransaction
     end
   end
 
-  def sufficient_balance
-    unless transact_from.is_a?(Wallet) && amount <= transact_from.balance
-      errors.add(:amount, 'amount is more than wallet balance')
-    end
-  end
-
   def add_to_transferee
 
   end

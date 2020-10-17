@@ -14,10 +14,4 @@ class Debit < WalletTransaction
   def debit_to_owner
     self.transact_from = transact_to.wallet
   end
-
-  def sufficient_balance
-    unless transact_from.is_a?(Wallet) && amount <= transact_from.balance
-      errors.add(:amount, 'amount is more than wallet balance')
-    end
-  end
 end
