@@ -1,5 +1,5 @@
 class Debit < WalletTransaction
-  validate :only_from_debiter_wallet
+  validate :only_from_debiter_wallet, :sufficient_balance
 
   before_validation :debit_to_owner
 
@@ -13,5 +13,11 @@ class Debit < WalletTransaction
 
   def debit_to_owner
     self.transact_from = transact_to.wallet
+  end
+
+  def sufficient_balance
+    unless transact_from.is_a?(Wallet) && amount <= transact_from.balance
+      errors.add(:amount, 'amount is more than wallet balance')
+    end
   end
 end
