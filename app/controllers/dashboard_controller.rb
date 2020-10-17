@@ -3,6 +3,9 @@ class DashboardController < ApplicationController
 
   def show
     @wallet = @person.wallet
-    @transactions = WalletTransaction.where(transact_to: @person).or(WalletTransaction.where(transact_from: @person))
+    @transactions = WalletTransaction.where(transact_to: @person)
+                      .or(WalletTransaction
+                      .where(transact_from: @person))
+                      .order(created_at: :desc)
   end
 end
