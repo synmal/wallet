@@ -1,6 +1,19 @@
 <tr>
-  <th scope="row">1</th>
-  <td>Mark</td>
-  <td>Otto</td>
-  <td>@mdo</td>
+  <th scope="row"><%= trans.created_at.strftime('%d/%m/%Y') %></th>
+  <td><%= trans.type %></td>
+  <td><%= trans.transact_from %></td>
+  <td>
+    <% if trans.type == 'Credit' %>
+      Wallet
+    <% elsif trans.type == 'Debit' %>
+      -
+    <% else %>
+      <%= trans.transact_to.owner.name %>
+    <% end %>
+  </td>
+  <td>
+    <strong class="<%= transaction_class(trans.type) %>">
+      <%= transact_amount(trans.amount, trans.type) %>
+    </strong>
+  </td>
 </tr>

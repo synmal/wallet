@@ -3,11 +3,12 @@
     <tr>
       <th scope="col">Date</th>
       <th scope="col">Type</th>
+      <th scope="col">From</th>
       <th scope="col">To</th>
-      <th scope="col">Amount</th>
+      <th scope="col">Amount (MYR)</th>
     </tr>
   </thead>
   <tbody>
-    <%= render partial: 'transaction_list', collection: transactions %>
+    <%= render partial: 'transaction_list', collection: transactions, as: :trans %>
   </tbody>
 </table>
