@@ -97,42 +97,6 @@ ALTER SEQUENCE public.teams_id_seq OWNED BY public.teams.id;
 
 
 --
--- Name: transactions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.transactions (
-    id bigint NOT NULL,
-    amount numeric(12,2) DEFAULT 0.0 NOT NULL,
-    transact_from_type character varying NOT NULL,
-    transact_from_id bigint NOT NULL,
-    transact_to_type character varying NOT NULL,
-    transact_to_id bigint NOT NULL,
-    type character varying NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.transactions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.transactions_id_seq OWNED BY public.transactions.id;
-
-
---
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -161,6 +125,42 @@ CREATE SEQUENCE public.users_id_seq
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: wallet_transactions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.wallet_transactions (
+    id bigint NOT NULL,
+    amount numeric(12,2) DEFAULT 0.0 NOT NULL,
+    transact_from_type character varying NOT NULL,
+    transact_from_id bigint NOT NULL,
+    transact_to_type character varying NOT NULL,
+    transact_to_id bigint NOT NULL,
+    type character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: wallet_transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.wallet_transactions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: wallet_transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.wallet_transactions_id_seq OWNED BY public.wallet_transactions.id;
 
 
 --
@@ -211,17 +211,17 @@ ALTER TABLE ONLY public.teams ALTER COLUMN id SET DEFAULT nextval('public.teams_
 
 
 --
--- Name: transactions id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.transactions ALTER COLUMN id SET DEFAULT nextval('public.transactions_id_seq'::regclass);
-
-
---
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: wallet_transactions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wallet_transactions ALTER COLUMN id SET DEFAULT nextval('public.wallet_transactions_id_seq'::regclass);
 
 
 --
@@ -264,19 +264,19 @@ ALTER TABLE ONLY public.teams
 
 
 --
--- Name: transactions transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.transactions
-    ADD CONSTRAINT transactions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: wallet_transactions wallet_transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wallet_transactions
+    ADD CONSTRAINT wallet_transactions_pkey PRIMARY KEY (id);
 
 
 --
@@ -302,24 +302,24 @@ CREATE UNIQUE INDEX index_teams_on_name ON public.teams USING btree (name);
 
 
 --
--- Name: index_transactions_on_transact_from_type_and_transact_from_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_transactions_on_transact_from_type_and_transact_from_id ON public.transactions USING btree (transact_from_type, transact_from_id);
-
-
---
--- Name: index_transactions_on_transact_to_type_and_transact_to_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_transactions_on_transact_to_type_and_transact_to_id ON public.transactions USING btree (transact_to_type, transact_to_id);
-
-
---
 -- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_username ON public.users USING btree (username);
+
+
+--
+-- Name: index_wallet_transactions_on_transact_from; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wallet_transactions_on_transact_from ON public.wallet_transactions USING btree (transact_from_type, transact_from_id);
+
+
+--
+-- Name: index_wallet_transactions_on_transact_to; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wallet_transactions_on_transact_to ON public.wallet_transactions USING btree (transact_to_type, transact_to_id);
 
 
 --
