@@ -10,7 +10,7 @@ class Transfer < WalletTransaction
   end
 
   def only_to_different_wallet
-    unless transact_from == transact_to
+    if transact_from == transact_to
       errors.add(:base, 'Transfer only available to different wallet')
     end
   end

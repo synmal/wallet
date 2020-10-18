@@ -9,6 +9,7 @@ class TransfersController < ApplicationController
       redirect_to dashboard_path
     else
       flash[:fail] = transfer.errors.full_messages.first
+      redirect_to dashboard_path
     end
   end
 
