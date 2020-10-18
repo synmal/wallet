@@ -134,6 +134,10 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 CREATE TABLE public.wallet_transactions (
     id bigint NOT NULL,
     amount numeric(12,2) DEFAULT 0.0 NOT NULL,
+    transact_from_initial numeric(12,2),
+    transact_from_final numeric(12,2),
+    transact_to_initial numeric(12,2),
+    transact_to_final numeric(12,2),
     transact_from_type character varying NOT NULL,
     transact_from_id bigint NOT NULL,
     transact_to_type character varying NOT NULL,
@@ -347,7 +351,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201014004539'),
 ('20201014004545'),
 ('20201014010041'),
-('20201014014409'),
 ('20201015002513');
 
 

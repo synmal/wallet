@@ -11,6 +11,16 @@ module DashboardHelper
     end
   end
 
+  def track_balance(trans)
+    if money_in?(trans) || transfer_in?(trans)
+      number_with_precision(trans.transact_to_final, precision: 2)
+    elsif money_out?(trans) || transfer_out?(trans)
+      number_with_precision(trans.transact_from_final, precision: 2)
+    else
+      '-'
+    end
+  end
+
   def money_in?(trans)
     /Credit/ === trans.type || transfer_in?(trans)
   end

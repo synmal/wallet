@@ -19,8 +19,11 @@ class Debit < WalletTransaction
   def deduct_from_wallet
     Debit.transaction do
       wallet = transact_from.lock!
+      self.track_changes
+
       wallet.balance -= amount
       wallet.save!
+
     end
   end
 end

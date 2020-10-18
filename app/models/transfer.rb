@@ -19,6 +19,7 @@ class Transfer < WalletTransaction
     Transfer.transaction do
       transferer = transact_from.lock!
       transferee = transact_to.lock!
+      self.track_changes
 
       transferer.balance -= amount
       transferer.save!

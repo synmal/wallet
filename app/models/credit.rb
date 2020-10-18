@@ -19,8 +19,11 @@ class Credit < WalletTransaction
   def add_to_wallet
     Credit.transaction do
       wallet = transact_to.lock!
+      self.track_changes
+
       wallet.balance += amount
       wallet.save!
+
     end
   end
 end
