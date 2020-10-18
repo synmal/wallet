@@ -11,7 +11,7 @@ class WalletTransactionTest < ActiveSupport::TestCase
     transfer = Transfer.new(amount: 0, transact_from: @user.wallet, transact_to: @stock.wallet)
     # byebug
     transfer.save
-    assert transfer.type == 'transfer'
+    assert transfer.type == 'Transfer'
   end
 
   test 'should only transfer from wallet to wallet' do
@@ -29,7 +29,7 @@ class WalletTransactionTest < ActiveSupport::TestCase
   test 'should have type credit' do
     credit = Credit.new(amount: 0, transact_from: @user, transact_to: @user.wallet)
     credit.save
-    assert credit.type == 'credit'
+    assert credit.type == 'Credit'
   end
 
   test 'should automatically point to owners wallet' do
@@ -41,7 +41,7 @@ class WalletTransactionTest < ActiveSupport::TestCase
   test 'should have type debit' do
     debit = Debit.new(amount: 0, transact_from: @user.wallet, transact_to: @user)
     debit.save
-    assert debit.type == 'debit'
+    assert debit.type == 'Debit'
   end
 
   test 'should automatically point to wallet owner' do
