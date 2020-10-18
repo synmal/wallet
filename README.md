@@ -1,24 +1,13 @@
-# README
+# Wallet Example
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Example of money manipulation
 
-Things you may want to cover:
+## Foreword
 
-* Ruby version
+Being a demo, this focuses on money manipulation. In real world apps, there will be more defined user authentication.
 
-* System dependencies
+## Instruction
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Clone repo
+2. Run bundle install
+3. Run `rails server`
